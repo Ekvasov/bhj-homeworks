@@ -17,6 +17,19 @@ class Game {
   }
 
   registerEvents() {
+
+    const check = (item) => {
+      let symbolDom = this.currentSymbol.textContent;//символ слова, которое надо напечатать
+      let symbolUser = item.key;//символ, который ввел пользователь
+      if(symbolDom === symbolUser) {//сравниваем символы
+        this.success();
+      } else {
+        this.fail();
+      }
+    }
+
+    document.addEventListener("keyup", check);
+
     /*
       TODO:
       Написать обработчик события, который откликается
@@ -87,4 +100,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
