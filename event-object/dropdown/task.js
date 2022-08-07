@@ -1,5 +1,5 @@
 const btn = document.querySelector(".dropdown__value");
-//const btns = Array.from(document.querySelectorAll(".dropdown__link"));
+const btns = Array.from(document.querySelectorAll(".dropdown__link"));
 
 function changeName() {
   if(btn.nextElementSibling.className === "dropdown__list") {
@@ -9,14 +9,14 @@ function changeName() {
   }
 }
 
-/*function toClose() {
+function toClose(event) {
   btn.textContent = this.textContent;
   btn.nextElementSibling.className = "dropdown__list";
-  return false;
-}*/
+  event.preventDefault();
+}
 
 btn.addEventListener("click", changeName);
 
-/*btns.forEach(element => {
-  //element.addEventListener("click", toClose);
-});*/
+btns.forEach(element => {
+  element.addEventListener("click", toClose);
+});
