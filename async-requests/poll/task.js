@@ -7,6 +7,7 @@ xhr.addEventListener("readystatechange", () => {
     const text = JSON.parse(xhr.responseText);
     const pollTitle = document.getElementById("poll__title");
     pollTitle.innerHTML = `${text.data.title}`;
+
     const answers = text.data.answers;
     const pollAnswers = document.getElementById("poll__answers");
     answers.forEach(element => {
@@ -14,11 +15,10 @@ xhr.addEventListener("readystatechange", () => {
                                                     ${element}
                                                   </button>`);
     })
+    
+    const pollAnswer = Array.from(document.querySelectorAll(".poll__answer"));
+    pollAnswer.forEach(element => {
+      element.onclick = () => alert("Спасибо, ваш голос засчитан");
+    })
   }
-})
-
-const pollAnswer = Array.from(document.querySelectorAll(".poll__answer"));
-console.log(pollAnswer);
-pollAnswer.forEach(element => {
-  element.onclick = () => console.log("Спасибо, ваш голос засчитан");
 })
