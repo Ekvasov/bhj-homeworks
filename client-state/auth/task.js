@@ -1,28 +1,29 @@
 const form = document.querySelector("form");
 const userId = document.getElementById("user_id");
 const welcome = document.getElementById("welcome");
+const signin = document.getElementById("signin");
 
 function welcomeUser() {
   userId.textContent = localStorage.id;
   welcome.classList.add("welcome_active");
+  signin.classList.remove("signin_active");
 }
 
-if(localStorage.id !== null) {
+if(localStorage.id !== undefined) {
   welcomeUser();
 }
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
 
-  xhr.addEventListener('readystatechange', () => {
-    if(xhr.readyState === xhr.DONE) {
-      if((JSON.parse(xhr.responseText)).success) {
-        localStorage.setItem('id', (JSON.parse(xhr.responseText)).user_id);
-        welcomeUser();
-      } else {
-        alert("Неверный логин/пароль");
-      }
+  xhr.addEventListener('load', () => {
+    if(xhr.response.success) {
+      localStorage.setItem('id', xhr.response.user_id);
+      welcomeUser();
+    } else {
+      alert("Неверный логин/пароль");
     }
   })
 
